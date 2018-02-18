@@ -34,8 +34,8 @@ model = load_model(args["model"])
 
 # build the label
 label = "Tennis Ball" if tennis_ball > not_tennis_ball else "Not Tennis Ball"
-proba = tennis_ball if tennis_ball > not_tennis_ball else not_tennis_ball
-label = "{}: {:.2f}%".format(label, proba * 100)
+probability = tennis_ball if tennis_ball > not_tennis_ball else not_tennis_ball
+label = "{}: {:.2f}%".format(label, probability * 100)
 
 # draw the label on the image
 output = imutils.resize(orig, width=400)
