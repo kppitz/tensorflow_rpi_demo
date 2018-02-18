@@ -1,12 +1,17 @@
-#Network training code found here:
-#https://www.pyimagesearch.com/2017/12/11/image-classification-with-keras-and-deep-learning/
+# USAGE
+# python train_network.py --dataset images --model santa_not_santa.model
 
+# set the matplotlib backend so figures can be saved in the background
+import matplotlib
+matplotlib.use("Agg")
+
+# import the necessary packages
 from keras.preprocessing.image import ImageDataGenerator
 from keras.optimizers import Adam
 from sklearn.model_selection import train_test_split
 from keras.preprocessing.image import img_to_array
 from keras.utils import to_categorical
-from lenet import LeNet
+from detection.lenet import LeNet
 from imutils import paths
 import matplotlib.pyplot as plt
 import numpy as np
@@ -22,10 +27,10 @@ ap.add_argument("-d", "--dataset", required=True,
 ap.add_argument("-m", "--model", required=True,
 	help="path to output model")
 ap.add_argument("-p", "--plot", type=str, default="plot.png",
-	help="path to output accuracy/loss plot")
+	help="path to output loss/accuracy plot")
 args = vars(ap.parse_args())
 
-# initialize the number of epochs to train for, initial learning rate,
+# initialize the number of epochs to train for, initia learning rate,
 # and batch size
 EPOCHS = 25
 INIT_LR = 1e-3
@@ -52,21 +57,7 @@ for imagePath in imagePaths:
 	# extract the class label from the image path and update the
 	# labels list
 	label = imagePath.split(os.path.sep)[-2]
-	label = 1 if label == "Tennis Ball" else 0
-	labels.append(label)
-
-# loop over the input images
-for imagePath in imagePaths:
-	# load the image, pre-process it, and store it in the data list
-	image = cv2.imread(imagePath)
-	image = cv2.resize(image, (28, 28))
-	image = img_to_array(image)
-	data.append(image)
-
-	# extract the class label from the image path and update the
-	# labels list
-	label = imagePath.split(os.path.sep)[-2]
-	label = 1 if label == "Tennis Ball" else 0
+	label = 1 if label == "tennis_ball" else 0
 	labels.append(label)
 
 # scale the raw pixel intensities to the range [0, 1]
@@ -83,7 +74,6 @@ trainY = to_categorical(trainY, num_classes=2)
 testY = to_categorical(testY, num_classes=2)
 
 # construct the image generator for data augmentation
-# reusing pictures with random flips and shifts for higher accuracy
 aug = ImageDataGenerator(rotation_range=30, width_shift_range=0.1,
 	height_shift_range=0.1, shear_range=0.2, zoom_range=0.2,
 	horizontal_flip=True, fill_mode="nearest")
@@ -113,10 +103,8 @@ plt.plot(np.arange(0, N), H.history["loss"], label="train_loss")
 plt.plot(np.arange(0, N), H.history["val_loss"], label="val_loss")
 plt.plot(np.arange(0, N), H.history["acc"], label="train_acc")
 plt.plot(np.arange(0, N), H.history["val_acc"], label="val_acc")
-plt.title("Training Loss and Accuracy on Tennis Ball")
+plt.title("Training Loss and Accuracy on Tennis Ball Net")
 plt.xlabel("Epoch #")
 plt.ylabel("Loss/Accuracy")
 plt.legend(loc="lower left")
 plt.savefig(args["plot"])
-
-# To run: python train_network.py --dataset images --model tennis_ball.model

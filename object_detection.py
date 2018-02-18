@@ -22,7 +22,7 @@ model = load_model(MODEL_PATH)
 
 #Loading video feed
 print("Starting video stream")
-vs = VideoStream(src=0).start()
+vs = VideoStream(0).start()
 time.sleep(2.0)
 
 while True:
@@ -38,12 +38,12 @@ while True:
 
     #classify image
     (not_tennis_ball, tennis_ball) = model.predict(image)[0]
-    label = "Not tennis ball"
+    label = "not_tennis_ball"
     probability = not_tennis_ball
 
     #if tennis ball is detected
     if tennis_ball > not_tennis_ball:
-        label = "Tennis ball"
+        label = "tennis_ball"
         probability = tennis_ball
         TOTAL_CONSEC += 1
 
@@ -63,8 +63,8 @@ while True:
         0.7, (0, 255, 0), 2)
 
     #output frame
-    cv2.imshow("Frame", frame)
-    key = cv2.waitkey(1) & oxFF
+    cv2.imshow("Video", frame)
+    key = cv2.waitKey(1) & 0xFF
     if key == ord("q"):
         break
 

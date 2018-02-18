@@ -33,7 +33,7 @@ model = load_model(args["model"])
 (not_tennis_ball, tennis_ball) = model.predict(image)[0]
 
 # build the label
-label = "Tennis Ball" if tennis_ball > not_tennis_ball else "Not Tennis Ball"
+label = "tennis_ball" if tennis_ball > not_tennis_ball else "not_tennis_ball"
 probability = tennis_ball if tennis_ball > not_tennis_ball else not_tennis_ball
 label = "{}: {:.2f}%".format(label, probability * 100)
 
