@@ -31,7 +31,7 @@ while True:
     frame = imutils.resize(frame, width=400)
 
     #prepare image to be classified
-    image = cv2.resize(frame, (28, 28))
+    image = cv2.resize(frame, (128, 128)) #originally 28x28
     image = image.astype("float")/255.0
     image = img_to_array(image)
     image = np.expand_dims(image, axis=0)
