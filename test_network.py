@@ -33,14 +33,14 @@ model = load_model(args["model"])
 (not_tennis_ball, tennis_ball) = model.predict(image)[0]
 
 # build the label
-label = "tennis_ball" if tennis_ball > not_tennis_ball else "not_tennis_ball"
-probability = tennis_ball if tennis_ball > not_tennis_ball else not_tennis_ball
+label = "tennis_ball" if ((tennis_ball > not_tennis_ball) and (tennis_ball > 0.7)) else "not_tennis_ball"
+probability = tennis_ball if (tennis_ball > not_tennis_ball) and (tennis_ball > 0.7) else not_tennis_ball
 label = "{}: {:.2f}%".format(label, probability * 100)
 
 # draw the label on the image
 output = imutils.resize(orig, width=400)
 cv2.putText(output, label, (10, 25),  cv2.FONT_HERSHEY_SIMPLEX,
-	0.7, (0, 255, 0), 2)
+	0.7, (0, 0, 0), 2)
 
 # show the output image
 cv2.imshow("Output", output)

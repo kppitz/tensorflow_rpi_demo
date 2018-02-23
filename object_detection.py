@@ -12,7 +12,7 @@ MODEL_PATH = "tennis_ball.model"
 #total consecutive frames tennis ball recognized
 TOTAL_CONSEC = 0
 #how many frames until confirming tennis tennis_ball
-TOTAL_THRESH = 20
+TOTAL_THRESH = 50
 #tennis ball spotted
 TENNIS_BALL = False
 
@@ -42,7 +42,7 @@ while True:
     probability = not_tennis_ball
 
     #if tennis ball is detected
-    if tennis_ball > not_tennis_ball:
+    if (tennis_ball > not_tennis_ball) and (tennis_ball > 0.7):
         label = "tennis_ball"
         probability = tennis_ball
         TOTAL_CONSEC += 1
