@@ -6,3 +6,6 @@ train_network.py --dataset images --model tennis_ball.model
 
 To test network with picture:
 python test_network.py --model tennis_ball.model --image examples/tennis_ball_test.jpg
+
+To run tennis ball recognition video feed:
+python object_detection.py

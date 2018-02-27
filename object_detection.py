@@ -42,7 +42,7 @@ while True:
     probability = not_tennis_ball
 
     #if tennis ball is detected
-    if (tennis_ball > not_tennis_ball) and (tennis_ball > 0.7):
+    if (tennis_ball > not_tennis_ball) and (tennis_ball > 0.5):
         label = "tennis_ball"
         probability = tennis_ball
         TOTAL_CONSEC += 1
@@ -60,7 +60,7 @@ while True:
     #prints likelihood of being a tennis ball
     label = "{}: {:.2f}%".format(label, probability * 100)
     frame = cv2.putText(frame, label, (10, 25), cv2.FONT_HERSHEY_SIMPLEX,
-        0.7, (0, 255, 0), 2)
+        0.7, (255, 255, 255), 2)
 
     #output frame
     cv2.imshow("Video", frame)
