@@ -42,7 +42,7 @@ while True:
     probability = not_tennis_ball
 
     #if tennis ball is detected
-    if (tennis_ball > not_tennis_ball) and (tennis_ball > 0.5):
+    if (tennis_ball > not_tennis_ball) and (tennis_ball > 0.7): #maybe take out .7
         label = "tennis_ball"
         probability = tennis_ball
         TOTAL_CONSEC += 1
