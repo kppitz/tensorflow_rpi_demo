@@ -16,6 +16,9 @@ TOTAL_THRESH = 50
 #tennis ball spotted
 TENNIS_BALL = False
 
+#size of frame for recognition
+dimensions = 224
+
 #load trained model
 print("Loading model")
 model = load_model(MODEL_PATH)
@@ -31,7 +34,7 @@ while True:
     frame = imutils.resize(frame, width=400)
 
     #prepare image to be classified
-    image = cv2.resize(frame, (28, 28))
+    image = cv2.resize(frame, (dimensions, dimensions))
     image = image.astype("float")/255.0
     image = img_to_array(image)
     image = np.expand_dims(image, axis=0)
